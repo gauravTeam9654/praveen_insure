@@ -39,7 +39,7 @@ export default function ChatBot({ user }: { user: User }) {
       setMessages(prev => [...prev, { role: 'bot', text: botResponse }]);
 
       // Save to backend for admin review
-      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/chat', {
+      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

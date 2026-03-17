@@ -26,7 +26,7 @@ export default function Login({ onLogin }: LoginProps) {
     const body = isLogin ? { email, password } : { name, email, password, role };
 
     try {
-      const response = await fetch(endpoint, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || ""}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),

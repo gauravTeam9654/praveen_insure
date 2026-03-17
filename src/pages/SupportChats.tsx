@@ -17,7 +17,7 @@ export default function SupportChats({ user }: { user: User }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch(`/api/chats?userId=${user.id}&role=${user.role}`)
+    fetch(`${import.meta.env.VITE_API_URL || ""}/api/chats?userId=${user.id}&role=${user.role}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch chats');
         return res.json();

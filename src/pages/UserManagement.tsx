@@ -24,7 +24,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`/api/users?role=${currentUser.role}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users?role=${currentUser.role}`);
       const data = await res.json();
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -38,7 +38,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
     if (!window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) return;
 
     try {
-      const res = await fetch(`/api/users/${userId}?role=${currentUser.role}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/${userId}?role=${currentUser.role}`, {
         method: 'DELETE',
       });
       if (res.ok) {
@@ -56,7 +56,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/register', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
