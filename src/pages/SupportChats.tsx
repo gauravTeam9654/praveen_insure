@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MessageSquare, User as UserIcon, Calendar, Bot, Search } from 'lucide-react';
 import { User } from '../types';
+import { API_BASE } from '../api';
 
 interface ChatLog {
   id: number;
@@ -17,7 +18,7 @@ export default function SupportChats({ user }: { user: User }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || ""}/api/chats?userId=${user.id}&role=${user.role}`)
+    fetch(`${API_BASE}/api/chats?userId=${user.id}&role=${user.role}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch chats');
         return res.json();

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Users, UserPlus, Shield, Mail, Calendar, Search, ShieldAlert, ShieldCheck, Trash2, X } from 'lucide-react';
 import { User } from '../types';
+import { API_BASE } from '../api';
 
 export default function UserManagement({ user: currentUser }: { user: User }) {
   const [users, setUsers] = useState<User[]>([]);
@@ -24,7 +25,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users?role=${currentUser.role}`);
+      const res = await fetch(`${API_BASE}/api/users?role=${currentUser.role}`);
       const data = await res.json();
       setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -38,7 +39,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
     if (!window.confirm("Are you sure you want to delete this user? This action cannot be undone.")) return;
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/users/${userId}?role=${currentUser.role}`, {
+      const res = await fetch(`${API_BASE}/api/users/${userId}?role=${currentUser.role}`, {
         method: 'DELETE',
       });
       if (res.ok) {
@@ -56,7 +57,7 @@ export default function UserManagement({ user: currentUser }: { user: User }) {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/api/register`, {
+      const res = await fetch(`${API_BASE}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

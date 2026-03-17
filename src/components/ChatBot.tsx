@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, User as UserIcon, Loader2 } from 'lucide-react';
 import { GoogleGenAI } from "@google/genai";
 import { User } from '../types';
+import { API_BASE } from '../api';
 
 export default function ChatBot({ user }: { user: User }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function ChatBot({ user }: { user: User }) {
       setMessages(prev => [...prev, { role: 'bot', text: botResponse }]);
 
       // Save to backend for admin review
-      await fetch(`${import.meta.env.VITE_API_URL || ""}/api/chat`, {
+      await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

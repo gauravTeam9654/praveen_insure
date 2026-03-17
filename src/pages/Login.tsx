@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShieldCheck, Mail, Lock, User as UserIcon, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { User } from '../types';
+import { API_BASE } from '../api';
 
 interface LoginProps {
   onLogin: (user: User) => void;
@@ -26,7 +27,7 @@ export default function Login({ onLogin }: LoginProps) {
     const body = isLogin ? { email, password } : { name, email, password, role };
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || ""}${endpoint}`, {
+      const response = await fetch(`${API_BASE}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
